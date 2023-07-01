@@ -1,2 +1,3 @@
-MagazynEdu/MagazynEdu/bin/
-MagazynEdu/MagazynEdu/obj/
+bin/
+obj/
+.vs/
