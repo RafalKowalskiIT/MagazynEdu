@@ -17,10 +17,10 @@ namespace MagazynEdu.Controllers
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<BookCase> GetAllBooks() => this.bookCaseRepository.GetAll();
+        public Task<List<BookCase>> GetAllBooks() => this.bookCaseRepository.GetAll();
 
         [HttpGet]
         [Route("{bookCaseId}")]
-        public BookCase GetBookById(int bookCaseId) => this.bookCaseRepository.GetById(bookCaseId);
+        public Task<BookCase> GetBookById(int bookCaseId) => this.bookCaseRepository.GetById(bookCaseId);
     }
 }

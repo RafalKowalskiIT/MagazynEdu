@@ -1,5 +1,6 @@
 using MagazynEdu.DataAccess;
 using MagazynEduApplicationServices.API.Domain;
+using MagazynEduApplicationServices.Mappings;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddDbContext<WarehouseStorageContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("WarehouseDataBaseConnection")));
 builder.Services.AddMediatR(typeof(ResponseBase<>));
+builder.Services.AddAutoMapper(typeof(BooksProfile).Assembly);
+builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 
 var app = builder.Build();
 
