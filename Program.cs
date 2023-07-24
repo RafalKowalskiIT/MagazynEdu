@@ -1,4 +1,5 @@
 using MagazynEdu.DataAccess;
+using MagazynEdu.DataAccess.CQRS;
 using MagazynEduApplicationServices.API.Domain;
 using MagazynEduApplicationServices.Mappings;
 using MediatR;
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<WarehouseStorageContext>(
 builder.Services.AddMediatR(typeof(ResponseBase<>));
 builder.Services.AddAutoMapper(typeof(BooksProfile).Assembly);
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
+builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 
 var app = builder.Build();
 
