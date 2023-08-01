@@ -17,8 +17,19 @@ namespace MagazynEdu.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllBooks([FromQuery] GetBooksRequest request)
+        public async Task<IActionResult> GetAllBooks([FromQuery] GetBookByIdRequest request)
         {
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+        [HttpGet]
+        [Route("{bookId}")]
+        public async Task<IActionResult> GetById([FromRoute] int bookId)
+        {
+            var request = new GetBookByIdRequest()
+            {
+                BookId = bookId
+            };
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
