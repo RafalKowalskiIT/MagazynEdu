@@ -8,21 +8,21 @@ namespace MagazynEdu.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BookCaseController : ControllerBase
+    public class BookCaseController : ApiControllerBase
     {
-        private readonly IMediator mediator;
+        
 
-        public BookCaseController(IMediator mediator)
+        public BookCaseController(IMediator mediator) :base(mediator)
         {
-            this.mediator = mediator;
+            
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddBookCase([FromBody] AddBookCaseRequest request)
+        public Task<IActionResult> AddBookCase([FromBody] AddBookCaseRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return Ok(response);
+            return this.HandleRequest<AddBookCaseRequest, AddBookCaseResponse>(request);
+           
         }
     }
 }
