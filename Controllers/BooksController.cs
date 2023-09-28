@@ -6,14 +6,14 @@ namespace MagazynEdu.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BooksController : ControllerBase
+    public class BooksController : ApiControllerBase
     {
         private readonly IMediator mediator;
 
-        public BooksController(IMediator mediator) 
-        {
-            this.mediator = mediator;
+        public BooksController(IMediator mediator) : base(mediator) 
+        { 
         }
+        
 
         [HttpGet]
         [Route("")]
@@ -24,14 +24,14 @@ namespace MagazynEdu.Controllers
         }
         [HttpGet]
         [Route("{bookId}")]
-        public async Task<IActionResult> GetById([FromRoute] int bookId)
+        public Task<IActionResult> GetById([FromRoute] int bookId)
         {
             var request = new GetBookByIdRequest()
             {
                 BookId = bookId
             };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            
+            return this.HandleRequest<GetBookByIdRequest, GetBookByIdResponse>(request);
         }
     }
 }

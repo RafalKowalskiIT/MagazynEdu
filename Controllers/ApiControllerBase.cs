@@ -17,17 +17,17 @@ namespace MagazynEdu.Controllers
 
         protected async Task<IActionResult> HandleRequest<TRequest, TResponse>(TRequest request)
             where TRequest : IRequest<TResponse>
-            where TResponse : ErrorResponseBase            
+            where TResponse : ErrorResponseBase
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(
                     this.ModelState
-                    .Where(x=>x.Value.Errors.Any())
-                    .Select(x=>new {property = x.Key, errors = x.Value.Errors}));
+                    .Where(x => x.Value.Errors.Any())
+                    .Select(x => new { property = x.Key, errors = x.Value.Errors }));
             }
             var response = await this.mediator.Send(request);
-            if (response.Error != null) 
+            if (response.Error != null)
             {
                 return this.ErrorResponse(response.Error);
             }
@@ -64,9 +64,10 @@ namespace MagazynEdu.Controllers
 
                 case ErrorType.TooManyRequests:
                     return HttpStatusCode.TooManyRequests;
-                    
+
                 default: return HttpStatusCode.BadRequest;
 
             }
+        }
     }
 }
